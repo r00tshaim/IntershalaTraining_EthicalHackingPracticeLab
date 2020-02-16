@@ -337,6 +337,120 @@ See if you can download the account statement for any other account numbers, oth
 accno=4001012392390
 
 
+## Rate Limiting Flaws Variant 2
+
+### query:
+email=asd%40daa.com&username=asda&password=123
+
+
+### task:
+See if the website has the Rate Limiting Flaw vulnerability and if you can exploit it to create accounts for 10 users. Do not do it manually, use Burp Suite to exploit. 
+
+### payload:
+*all there parameters are vulnerable to rate limiting flaw*
+*select all three payloads and using burp-suite do PitchFork attack uisng username,password,email list*
+
+
+## Server Side Attack Variant 1
+
+### query:
+*the uplaod options allows to uploads file to server and afteruplaoding it allows to download*
+
+### task:
+
+Figure out how much damage can a hacker do using the file upload vulnerability in the web page below.
+
+### payload:
+
+*the upload options allow to upload file with any-type*
+
+*https://raw.githubusercontent.com/tennc/webshell/master/php/b374k/mini_b374k copy the shell from here and save file as .php and uplaod the shell and then execute it*
+
+
+## Server Side Attack Variant 2
+
+### query:
+Content-Disposition: form-data; name="tenth"; filename="hacked.pdf"
+Content-Type: application/pdf
+
+
+
+### task:
+
+Figure out how much damage can a hacker do using the file upload vulnerability in the web page below.
+
+### payload:
+
+*sience they are asking to uplaod php file(other file type is not being uploaded) there is client side check on file type*
+
+*we save the shell https://raw.githubusercontent.com/tennc/webshell/master/php/b374k/mini_b374k as .pdf and upload it, meanwhile intercept it with burp-suite and chnage the filetype to .php and forward the request.*
+
+OR 
+
+this is the query for pdf file:
+
+>Content-Disposition: form-data; name="tenth"; filename="hacked.pdf"
+>Content-Type: application/pdf
+
+this is the query for non-pdf file:
+
+>Content-Disposition: form-data; name="tenth"; filename="hacked.php"
+>Content-Type: application/octet-stream
+
+*you can also play with 'Content-Type' header just change it to application/pdf*
+
+
+## Client Side Attack Variant 1
+
+### query:
+Content-Disposition: form-data; name="image"; filename="hacked.jpeg"
+Content-Type: image/jpeg
+
+### task:
+Figure out how much damage can a hacker do using the file upload vulnerability in the web page below.
+
+### paylaod:
+*any file other then gif,jpeg,png are not even sent to burp-suite they are checked at client-side and rejected there only*
+
+*so we need to first upload shell as .jpeg and in burp-suite we can change file-type to .php*
+
+Content-Disposition: form-data; name="image"; filename="hacked.php"
+Content-Type: image/jpeg
+
+*but the file-type is cheched even at server side so maybe we can upload .html file*
+
+Content-Disposition: form-data; name="image"; filename="helloworld.html"
+Content-Type: image/jpeg
+
+*.html file is accpeted by server means they are only checking for .php file, hene our html file is uploaded, now we can carry out any client side attack like phising*
+
+
+## Server Side Attack Variant 3
+
+### query:
+Content-Disposition: form-data; name="dob"; filename="4555v2.pdf"
+Content-Type: application/pdf
+
+### task:
+See if you can upload a PHP file by exploiting the File Upload vulnerability in the website below.
+
+### payload:
+
+for pdf file
+Content-Disposition: form-data; name="dob"; filename="4555v2.pdf"
+Content-Type: application/pdf
+
+for non-pdf file
+
+Content-Disposition: form-data; name="residence"; filename="shell.php"
+Content-Type: application/octet-stream
+
+*even after changing the 'Content-Type' to pdf file is checked at server side so we use shell.php%00.pdf -->anything after %00 is disregarded in older version of php and hence the file will be saved as shell.php*
+
+
+
+
+
 
 
 
