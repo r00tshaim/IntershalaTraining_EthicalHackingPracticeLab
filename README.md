@@ -571,6 +571,62 @@ See if you can bypass protective filters and generate alert pop up.
 
 
 
+## Permanent XSS Variant 1
+
+### query:
+
+### task:
+See if you can use the chat box to insert custom XSS.
+
+### payload:
+*first check if we can input some html charcaters like < >*
+
+comment: <p onmouseover=alert(1) > hello mouse here </p>
+
+
+
+## Permanent XSS Variant 2
+
+### query:
+
+### task:
+Try to use BurpSuite to check for XSS in this variant.
+
+### payload:
+
+
+We see browser names are printed. If we look at http request, it the same sting from the User Agent header in the HTTP request.
+
+Intercept request with Burp, replace user agent with abcd and the table wil show abcd on top.
+
+Now we can put any HTML in useragent and it will be stored XSSl User Agent:       <script>alert("xssed")</script>
+
+
+
+## Permanent XSS Variant 3
+
+### query:
+
+### task:
+See if you can execute javascript and generate alert pop up in the 'Products' page.
+
+### payload:
+
+*Click on 'Login as A Seller' button.* 
+
+*Enter the payload <p onmouseover=alert(1) >shantinagar, banglore </p> in 'Seller Address' input field*
+
+*Click on save changes.*
+
+*Now click on ‘Show Products’ button, move your mouse over address and you can see XSS popup.*
+
+
+
+
+
+
+
+
 
 
 
