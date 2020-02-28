@@ -647,9 +647,9 @@ Given below is the web page of an e-commerce website with an option to login as 
 ### task:
 Given below is the login page for sellers on an e-commerce website. Using the credentials mentioned, check if any of the web pages are vulnerable to forced browsing.
 
-		username	password
-Normal Seller 	seller3 	seller3
-Seller Admin 	sellerAdmin 	kill3rsell3r007
+>		username	password
+>Normal Seller 	seller3 	seller3
+>Seller Admin 	sellerAdmin 	kill3rsell3r007
 
 ### payload:
 *login as seller3, copy the URL and logout, URL is asking username password again(so there is no flaw of Authenctication may be authorization vulnerability can be present) *
