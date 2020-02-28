@@ -623,6 +623,52 @@ See if you can execute javascript and generate alert pop up in the 'Products' pa
 
 
 
+## Forced Browsing Variant 1
+
+### query:
+
+### task:
+Given below is the web page of an e-commerce website with an option to login as a seller. Using the credentials mentioned, check if any of the web pages are vulnerable to forced browsing. Credentials: (Seller Name: seller1 and Password: seller1)
+
+### payload:
+*log in with the given ceredentials and then copy the URL*
+*now log out of the current user and*
+*paste the link in URL, it doesnt ask for username and password(doesnt do authentication) so it has FORCED BROWSING VULNERABILITY*
+
+*if the web application has  FORCED BROWSING VULNERABILITY you can access the URL in inconigto tab also*
+
+**To find this vulnerability with google dorks:  site:x.com inurl:seller/actions or robots.txt**
+
+
+## Forced Browsing Variant 2
+
+### query:
+
+### task:
+Given below is the login page for sellers on an e-commerce website. Using the credentials mentioned, check if any of the web pages are vulnerable to forced browsing.
+
+		username	password
+Normal Seller 	seller3 	seller3
+Seller Admin 	sellerAdmin 	kill3rsell3r007
+
+### payload:
+*login as seller3, copy the URL and logout, URL is asking username password again(so there is no flaw of Authenctication may be authorization vulnerability can be present) *
+*login as admin, copy the manage_products URL and logout, login with seller and paste the manage_product URL now you can see manage_product URL(this is authorization FORCED BROWSING VULNERABILITY)*
+
+
+## Forced Browsing Variant 3
+
+### query:
+
+### task:
+You do not have the credentials to the account given below. Can you look for some clue that lets you force browse into the account, without the credentials?
+
+### payload:
+*click on 'i' symbol you will get a screenshot which has a URL, goto to same URL and you can see the critical information without authenctication(here no proper authenctication is done this is the example of Forced Browsing Vulnerability).*
+
+
+
+
 
 
 
