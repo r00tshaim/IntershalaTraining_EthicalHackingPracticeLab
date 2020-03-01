@@ -800,6 +800,51 @@ Click on the 'log in' button to directly login to the account without credential
 
 
 
+## Dictionary Based Bruteforcing Variant 1
+
+### query:
+
+
+### task:
+You have valid credentials (Username:bulla; Password:bulla@123) for this login page. See if you can brute force this login page and find valid usernames and passwords of other users.
+
+### paylaod:
+*download bruteforce database from https://github.com/duyetdev/bruteforce-database*
+
+*intercept the req with burp select the username and password field in intruder choose attack type cluster bomb, set payload 1 as username list and paylaod 2 as password list*
+
+*start the attack, check for response length, ones with higher length will be correct credentials*
+
+
+## Dictionary Based Bruteforcing Variant 2
+
+### query:
+
+
+### task:
+You have valid credentials (Username:bulla; Password:bulla@123) for this login page. See if you can brute force this login page and find valid usernames and passwords of other users.
+
+### payload:
+*corrent crendetials has 302 as server responser, incorrect credentials has 200 as server response*
+*intercept the req with burp select the username and password field in intruder choose attack type cluster bomb, set payload 1 as username list and paylaod 2 as password list*
+
+*start the attack, check for server response code, ones with 302 will be correct credentials*
+
+
+## Dictionary Based Bruteforcing Variant 3
+
+### query:
+
+
+### task:
+You have valid credentials (Username: bulla; Password: bulla@123) for this login page. See if you can brute force this login page and find valid usernames and passwords of other users. 
+
+### payload:
+*here content length for both correct and incorrect credentials is same, so we cannot disginish between correct and incorrect credentials*
+
+*In burp->intruder->options->grep match
+check the checkbox saying ‘Flag result items with responses matching these expressions’ 
+Clear the existing list by clicking on the ‘clear’ button and add the success login message i.e “LoggedIn[space]Successfully.[space]Welcome!” (replace [space] with a space). This will help us identify which username password combination worked during the attack.*
 
 
 
